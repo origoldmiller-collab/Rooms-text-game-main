@@ -1,11 +1,22 @@
 let arrOfRooms = [];
 let curentRoom;
+//let arrOfBaseActions = [new Word("look around", curentRoom.lookAround()), new Word("investiagte", curentRoom.lookAround())];
 
 document.getElementById("tester").addEventListener("click", reset);
+document.getElementById("response").addEventListener("change", InterpResponse)
 
-function test(){
+function InterpResponse(){
+    //Get data from the page and format it
+    let response = document.getElementById("response").value.toLowerCase()
+    console.log(response)
 
+    actionGoTo = curentRoom.arrOfActions.filter( (element) => {
+        return response.contains(element.tag)
+    })
+    console.log(actionGoTo);
+    
 }
+
 
 function reset(){
     console.clear()
@@ -14,9 +25,16 @@ function reset(){
     console.log(curentRoom.description)
 }
 
+class Word{
+    constructor(tag, funct){
+        this.tag = tag
+        this.functionGoTo = funct
+    }
+}
+
 class Room{
     constructor(){
-        this.arrOfActions = [this.lookAround,]
+        this.arrOfActions = [new Word("inspect", this.lookAround())]
         this.objIn = []
         this.furnIn = []
         this.northDorTru = true;
@@ -34,6 +52,6 @@ class Room{
         this.description = "You enter an empty room stave the wood facade wallpaper and linolium flooring a single light bulb hangs fromt the ceiling. Four doors lead to exits from this room on for each of the cardenail directions." 
     }
     lookAround(){
-        console.log("there seams to be nothin of importaince in here");
+        console.log("there seems to be nothing of importaince in here");
     }
 }
